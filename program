@@ -1,8 +1,9 @@
 #include <iostream>
-#include <stack>
+#include <stack> //for using stacks
 
 using namespace std;
 
+//Template of each node in the binary tree
 struct Node {
     int val;
     struct Node *left, *right;
@@ -12,21 +13,34 @@ struct Node {
     }
 };
 
+//Function to print post order traversal of binary tree iteratively
 void postOrderTraversal(struct Node* root) {
+    //One stack to iterate through the tree
     stack<Node*> s;
     s.push(root);
+    
+    //One stack to hold the output
     stack<int> out;
+    
     while(!s.empty()) {
         Node* curr = s.top();
         s.pop();
+        
+        //Push the output tree value into the output stack
         out.push(curr->val);
+        
+        //Push in the left child of current node into the stack
         if(curr->left) {
             s.push(curr->left);
         }
+        
+        //Push in the right child of current node into the stack
         if(curr->right) {
             s.push(curr->right);
         }
     }
+    
+    //Print the output stored in the output stack
     while(!out.empty()) {
         cout<<out.top()<<endl;
         out.pop();
